@@ -1,0 +1,105 @@
+git config --global user.name "Minakoto"
+git config --global user.email "morriganowk@gmail.com"
+git config --global init.defaultBranch main
+apt install git gh
+ssh-keygen -t ed25519 -f ~/.ssh/TelVel
+
+gh auth login
+? What account do you want to log into? GitHub.com
+? What is your preferred protocol for Git operations on this host? SSH
+? Upload your SSH public key to your GitHub account? /root/.ssh/Minakoto.pub
+? Title for your SSH key: eltex-practice2-pg1-v2
+? How would you like to authenticate GitHub CLI? Login with a web browser
+
+! First copy your one-time code: 69D3-1C10
+Press Enter to open github.com in your browser... 
+! Failed opening a web browser at https://github.com/login/device
+  exec: "xdg-open,x-www-browser,www-browser,wslview": executable file not found in $PATH
+  Please try entering the URL in your browser manually
+✓ Authentication complete.
+- gh config set -h github.com git_protocol ssh
+✓ Configured git protocol
+! Authentication credentials saved in plain text
+✓ Uploaded the SSH key to your GitHub account: /root/.ssh/Minakoto.pub
+✓ Logged in as Minakoto
+
+gh auth setup-git --hostname github.com
+
+gh repo create --public Eltex_Practice
+
+git init
+echo "Результаты прохождения курсов от компании Eltex" >> README.md
+git commit -m "first commit"
+git branch -M main
+git remote origin https://githib.com/Minakoto/Eltex_Practice.git
+git push -u origin main
+mkdir -p module1/task1
+mkdir -p module1/task2
+mkdir -p module1/task3
+
+scp eltex-pg1-v2_* report_part1.txt root@172.16.9.176:/root
+
+mv eltex-pg1-v2_* report_part1.txt Eltex_Practice/module1/task1
+
+git add .
+git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   module1/task1/eltex-pg1-v2_part.log
+	new file:   module1/task1/eltex-pg1-v2_part3.log
+	new file:   module1/task1/eltex-pg1-v2_part3_gt50M.log
+	new file:   module1/task1/report_part1.txt
+
+git commit -m "Task 1"
+git push
+
+
+mkdir Eltex_Practice_clone
+git clone https://github.com/Minakoto/Eltex_Practice.git
+git fetch
+git log origin/main
+commit 0ad95d4c75577b466c02585c37c71936a28ecc57 (origin/main, origin/HEAD)
+Author: Minakoto <morriganowk@gmail.com>
+Date:   Tue Mar 18 06:34:05 2025 +0000
+
+    Checking clones
+
+commit c57344ea71f046bd53e391e3f34ccfa0b98e1639 (HEAD -> main)
+Author: Minakoto <morriganowk@gmail.com>
+Date:   Tue Mar 18 06:32:10 2025 +0000
+
+    unHuh
+
+commit c3f5bfdf88cefae1b6ff096b6e450b98a901beb0
+Author: Minakoto <morriganowk@gmail.com>
+Date:   Tue Mar 18 06:31:36 2025 +0000
+
+    Huh
+
+commit 5f1cbc8be391dc9aceabb876250888e2bf1524f0
+Author: Minakoto <morriganowk@gmail.com>
+Date:   Tue Mar 18 06:29:33 2025 +0000
+
+    Task 1
+
+commit bfc254732f8af55c1bb84ae409d3aeb1f18be50e
+Author: Minakoto <morriganowk@gmail.com>
+Date:   Tue Mar 18 06:16:34 2025 +0000
+
+    first commit
+
+git diff origin/main
+diff --git a/module1/task2/test.txt b/module1/task2/test.txt
+deleted file mode 100644
+index e69de29..0000000
+
+git merge
+
+mv practice_part* Eltex_Practice/module1/task2
+git add .
+git commit -m "Task 2"
+git push
+

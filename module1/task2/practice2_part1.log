@@ -1,0 +1,105 @@
+ssh-keygen
+ssh-copy-id root@172.16.9.176
+useradd -m -s /bin/bash/ user1 -p 1234
+adduser user2
+adduser user3
+
+info: Adding user `user4' ...
+info: Selecting UID/GID from range 1000 to 59999 ...
+info: Adding new group `user3' (1005) ...
+info: Adding new user `user3' (1005) with group `user3 (1005)' ...
+info: Creating home directory `/home/user3' ...
+info: Copying files from `/etc/skel' ...
+New password: 
+Retype new password: 
+No password has been supplied.
+New password: 
+Retype new password: 
+passwd: password updated successfully
+Changing the user information for user3
+Enter the new value, or press ENTER for the default
+	Full Name []: 
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] Y
+info: Adding new user `user3' to supplemental / extra groups `users' ...
+info: Adding user `user3' to group `users' ...
+
+
+usermod -s /usr/sbin/nologin user3
+su user3
+
+This account is currently not available.
+
+su -s /bin/bash user3
+
+addgroup usernames
+usermod -G usernames user1
+usermod -G usernames user2
+usermod -G usernames user3
+cat etc/group
+
+...
+tech:x:1000:
+user1:x:1001:
+user2:x:1002:
+user3:x:1003:
+usernames:x:1004:user1,user2,user3
+
+chgrp usernames ../opt/share
+chmod g+rwxs share/
+umask 004 в .profile для user1
+chmod +t ../opt/share
+
+su user2
+rm user3.txt
+
+rm: cannot remove 'user3.txt': Operation not permitted
+
+user1 ALL=(ALL:ALL) /usr/bin/dmesg в файл /etc/sudoers
+user2 ALL=(ALL:ALL) NOPASSWD: /usr/bin/dmesg в файл /etc/sudoers
+
+chage -M 10 user1
+chage -M 10 user2
+chage -M 10 user3
+
+rsync -a /etc ~/etc_backup
+
+tar -cf arch.tar etc_backup/
+tar -cjf arc.tar.bz2 etc_backup/
+tar -czf arch.tar.gz etc_backup/
+7z a arch.tar.7z arch.tar
+
+ls -lh
+total 4.9M
+-rw-r--r--   1 root root 1.6K Mar 16 17:03 1
+-rw-r--r--   1 root root 3.4M Mar 16 17:28 arch.tar
+-rw-r--r--   1 root root 475K Mar 16 17:30 arch.tar.7z
+-rw-r--r--   1 root root 547K Mar 16 17:28 arch.tar.bz2
+-rw-r--r--   1 root root 581K Mar 16 17:28 arch.tar.gz
+drwxr-xr-x 109 root root 4.0K Mar 16 17:03 etc_backup
+-rw-r--r--   1 root root 1.7K Mar 16 17:32 practice2_part1.log
+
+echo $(date +"%d.%m.%y "%T) >> /etc/motd
+rsync -a /etc/ ~/etc_backup
+
+rm arch.tar
+tar -cf arch.tar etc_backup/
+rm arch.tar.gz
+tar -czf arch.tar.gz etc_backup/
+
+tar -df archive.bz2 -C .
+etc_backup/motd: Mod time differs
+etc_backup/motd: Size differs
+
+gzip -d ../arch.tar.gz
+7z x ../arch.tar.7z
+tar -xvf arch.tar
+diff -r etc_backup_zip etc_backup_gzip
+Only in etc_backup_7zip/: arch.tar
+diff -r etc_backup_7zip/etc_backup/motd etc_backup_gzip/etc_backup/motd
+1a2,3
+> 
+> 12:59 18.03.25
