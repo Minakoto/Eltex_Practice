@@ -1,0 +1,15 @@
+mkdir -p D1/D2/D3
+touch D1/D2/file.txt
+echo "Hello me" >> file.txt
+ln D1/D2/file.txt D1/D2/D3/hlink.txt
+ln -s D1/D2/file.txt D1/D2/D3/slink.txt
+ls -ali
+mv D1/D2/file.txt D1/
+Не работает slink, потому что мягкая :)
+
+rm -rf D1/D2/
+find / -size +50M -type f 2>/dev/null >> eltex-pg1-v2_part3_gt50M.log
+find ~ -mtime -1
+which find
+file /usr/bin/find
+file /boot/initrd.img*

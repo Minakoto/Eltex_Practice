@@ -1,0 +1,15 @@
+screen -S eltex-pg1-v2_part
+ls *TAB TAB*
+echo $HIST  *TAB TAB*
+echo $HISTFILESIZE Может хранится 2000
+ls .*
+export HISTTIMEFORMAT='%F %T '
+export PROMPT_COMMAND='history -a'
+DATE=$(date +%F)
+echo $DATE
+TIME=$(date +%H:%M:%S)
+echo $TIME
+find /bin/ /sbin/ -name '*[0-9]*'
+DATE_TIME="$DATE $TIME"
+PROMPT_COMMAND='PS1=$USER@$HOSTNAME-$(date +%H:%M)>'
+mkdir $(date +%Y)-{1-12}
