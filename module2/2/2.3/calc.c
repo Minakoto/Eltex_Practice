@@ -32,7 +32,7 @@ void div_f(float* res, int cnt, float* op) {
     if(cnt < 2) res = NULL;
     else {
         *res = *op;
-        for(int i = 0; i < cnt; i++) {
+        for(int i = 1; i < cnt; i++) {
             arg = *(op + i);
             if(arg == 0) {
                 res = NULL;

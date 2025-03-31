@@ -1,51 +1,19 @@
 #include "calc.h"
 
-void add_f(float* res, int cnt, float* op) {
-    if(cnt < 2) res = NULL;
-    else {
-        *res = *op;
-        for(int i = 1; i < cnt; i++) {
-            *res += *(op + i);
-        }
-    }
-}
-void sub_f(float* res, int cnt, float* op) {
-    if(cnt < 2) res = NULL;
-    else {
-        *res = *op;
-        for(int i = 1; i < cnt; i++) {
-            *res -= *(op + i);
-        }
-    }   
-}
-void mul_f(float* res, int cnt, float* op) {
-    if(cnt < 2) res = NULL;
-    else {
-        *res = *op;
-        for(int i = 1; i < cnt; i++) {
-            *res *= *(op + i);
-        }
-    }    
-}
-void div_f(float* res, int cnt, float* op) {
-    float arg;
-    if(cnt < 2) res = NULL;
-    else {
-        *res = *op;
-        for(int i = 1; i < cnt; i++) {
-            arg = *(op + i);
-            if(arg == 0) {
-                res = NULL;
-                break;
-            }
-            else *res /= arg;
-        }
-    }
-}
-
-char menu_f();
-
 void print_cmd(char);
+void list_operations(operation*);
+void menu(operation*);
+int find(operation*, const char*);
+
+int main() {
+    operation ops[4] = {
+        {"add", add_f},
+        {"sub", sub_f},
+        {"mul", mul_f},
+        {"div", div_f}
+    };
+    menu(ops);
+}
 
 void list_operations(operation* op) {
     for(int i = 0; i < 4; i++) {
@@ -54,7 +22,6 @@ void list_operations(operation* op) {
     printf("-1. Exit\n");
     printf("Enter option: ");
 }
-
 void menu(operation* ops) {
     float res = 0;
     char cmd = 0;
@@ -98,20 +65,9 @@ void menu(operation* ops) {
 
     }
 }
-
 int find(operation* ops, const char* oper) {
     for(int i = 0; i < 4; i++) {
         if(strcmp(ops[i].name, oper) == 0) return i;
     }
     return -1;
-}
-
-int main() {
-    operation ops[4] = {
-        {"add", add_f},
-        {"sub", sub_f},
-        {"mul", mul_f},
-        {"div", div_f}
-    };
-    menu(ops);
 }
