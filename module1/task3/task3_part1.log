@@ -1,0 +1,47 @@
+ps -eLo nlwp,pid,cmd | awk '$1>1 {print $2, $3}' | uniq
+
+PID CMD
+364 /sbin/multipathd
+678 /usr/lib/systemd/systemd-timesyncd
+694 /usr/lib/polkit-1/polkitd
+695 /usr/sbin/qemu-ga
+712 /usr/libexec/udisks2/udisksd
+731 /usr/bin/python3
+742 /usr/sbin/rsyslogd
+755 /usr/sbin/ModemManager
+1128 /usr/libexec/fwupd/fwupd
+1135 /usr/libexec/upowerd
+
+действия внутри top
+'f' -> 'space' на поля VIRT RES SHR
+'space' на поле RUSER нажать ->, передвинуть в нужное место
+в другом окне ввести passwd user2
+'o' -> "RUSER=user1"
+'L' -> "passwd"
+'k' -> 15 2 3 9
+
+vim ~/file_task3.txt
+ctrl + z
+[1]+  Stopped                 vim ~/file_task3.txt
+
+sleep 600
+ctrl + z
+jobs
+[1]-  Stopped                 vim ~/file_task3.txt
+[2]+  Stopped                 sleep 600
+
+ps axl
+
+renice 10 73225
+73225 (process ID) old priority 0, new priority 10
+
+fg %1
+
+kill -15 %2
+[2]+  Terminated              sleep 600
+
+trap 'echo "Меня голыми руками не возьмешь!"' SIGQUIT SIGINT
+Меня голыми руками не возьмешь! ^\
+
+Меня голыми руками не возьмешь! ^C
+
