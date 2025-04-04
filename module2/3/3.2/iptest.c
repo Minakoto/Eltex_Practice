@@ -27,7 +27,7 @@ uint32_t genip(char* mask) {
     char* part = strtok(tmpstr, ".");
     for(int i = 4; i > 0; --i) {
         quad = atoi(part);
-        rnd = (uint8_t)((rand() % (quad + 1)));
+        rnd = (uint8_t)((rand() % 254));
         tmp = (tmp << 8) | (rnd);
         part = strtok(NULL, ".");
     }
@@ -35,7 +35,7 @@ uint32_t genip(char* mask) {
     return tmp;
 }
 int is_connected(uint32_t subnet,uint32_t mask,uint32_t ip) {
-    return ((subnet & mask) == (subnet & ip)) ? 1 : 0;
+    return ((subnet & mask) == (ip & mask)) ? 1 : 0;
 }
 int main(int argc, char* argv[]) {
     char* str_mask = argv[2];
