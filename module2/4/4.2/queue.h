@@ -5,6 +5,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
 typedef struct p_queue {
     short priority;
     char msg[MSG_SIZE];

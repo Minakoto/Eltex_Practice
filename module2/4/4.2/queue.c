@@ -3,10 +3,31 @@
 
 int main() {
     p_queue* pq = NULL;
-    pq = Add(pq, "Hello", 24);
-    pq = Add(pq, "Goodbye", 23);
-    pq = Add(pq, "Greet", 255);
+    srand(time(NULL));
+    char* tmp;
+    for(int j = 0; j < 50; j++) {
+        tmp = malloc(25*sizeof(char));
+        for(int i = 0; i < 25; i++) {
+            tmp[i] = 32 + (rand() % 128);
+        }
+        short pri = rand() % 255;
+        pq = Add(pq, tmp, pri);
+        free(tmp);
+    }
+    printf("Initial queue\n");
     print(pq);
+    printf("\n\n");
+    p_queue* tmp1 = GetFirst(pq);
+    p_queue* tmp2 = GetFromPriority(pq, 54);
+    p_queue* tmp3 = GetMinPriority(pq, 200);
+    printf("Get highest priority\n");
+    print(tmp1);
+    printf("\n\n");
+    printf("Get with priority = 54\n");
+    print(tmp2);
+    printf("\n\n");
+    printf("Get with priority less than 200\n");
+    print(tmp3);
 }
 
 p_queue* Add(p_queue* root, char* msg, short pri) {
@@ -22,7 +43,8 @@ p_queue* Add(p_queue* root, char* msg, short pri) {
         tmp->next = rt;
         return tmp;
     }
-    while(rt->priority >= tmp->priority && rt->next != NULL) rt = rt->next;
+    while(rt->next != NULL && rt->next->priority >= tmp->priority) rt = rt->next;
+
     if(rt->next == NULL) {
         tmp->next = NULL;
         rt->next = tmp;
