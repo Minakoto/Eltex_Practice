@@ -49,11 +49,7 @@ void mod_d(int* res, int cnt, int first, int* op) {
         *res = first;
         for(int i = 0; i < cnt; i++) {
             arg = *(op + i);
-            if(arg == 0) {
-                res = NULL;
-                break;
-            }
-            else *res %= arg;
+            *res %= arg;
         }
     }  
 }

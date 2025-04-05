@@ -29,6 +29,7 @@ List* AddElem(Entry value, List* head) {
     }
     tmp->next = newElem;
     newElem->prev = tmp;
+    newElem->next = NULL;
     return head;
 }
 List* DelElem(short value, List* head) {
@@ -77,7 +78,7 @@ void PrintList(List* head) {
         return;
     }
     while(tmp != NULL) {
-        printf("%d", tmp->data.id);
+        printf("%p %d",tmp->next, tmp->data.id);
         tmp = tmp->next;
         if(tmp != NULL) printf(" <-> ");
     }

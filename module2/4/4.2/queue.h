@@ -17,5 +17,6 @@ p_queue* Add(p_queue*, char*, short);
 p_queue* GetFirst(p_queue*);
 p_queue* GetFromPriority(p_queue*, short);
 p_queue* GetMinPriority(p_queue*, short);
+p_queue* Delete(p_queue* pq, p_queue* todel);
 void print(p_queue*);
 #endif

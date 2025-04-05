@@ -185,6 +185,7 @@ int is_empty(char* string) {
 
 void print_book(List* head) {
     List* tmp = head;
+    // PrintList(tmp);
     if(tmp == NULL) {
         printf("Phonebook empty!\n");
         return;
