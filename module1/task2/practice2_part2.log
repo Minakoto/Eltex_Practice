@@ -1,4 +1,4 @@
-journalctl -b 0 | grep -E "19:59:14 | 19:59:15"
+journalctl -b 0 --until "$(date -d "$( journalctl -q -b 0 -o short-full | head -1 | awk '{print $2" "$3}') + 1.5 seconds" +"%F %H:%M:%S.%N")" 
 
 Mar 12 19:59:14 localhost kernel: Linux version 6.8.0-55-generic (buildd@lcy02-amd64-095) (x86_64-linux-gnu-gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #57-Ubuntu SMP PREEMPT_DYNAMIC Wed Feb 12 23:42:21 UTC 2025 (Ubuntu 6.8.0-55.57-generic 6.8.12)
 Mar 12 19:59:14 localhost kernel: Command line: BOOT_IMAGE=/vmlinuz-6.8.0-55-generic root=/dev/mapper/ubuntu--vg-ubuntu--lv ro
@@ -794,48 +794,6 @@ Mar 12 19:59:14 localhost systemd[1]: Finished systemd-tmpfiles-setup-dev.servic
 Mar 12 19:59:14 localhost systemd[1]: Starting systemd-udevd.service - Rule-based Manager for Device Events and Files...
 Mar 12 19:59:14 localhost systemd-journald[308]: Time spent on flushing to /var/log/journal/560b026a44d3424ea490d29e1a7e2775 is 1.918289s for 792 entries.
 Mar 12 19:59:14 localhost systemd-journald[308]: System Journal (/var/log/journal/560b026a44d3424ea490d29e1a7e2775) is 33.7M, max 1.4G, 1.4G free.
-Mar 12 19:59:14 localhost systemd[1]: Finished systemd-sysctl.service - Apply Kernel Variables.
-Mar 12 19:59:14 localhost systemd-udevd[370]: Using default interface naming scheme 'v255'.
-Mar 12 19:59:14 localhost systemd[1]: Finished systemd-udev-trigger.service - Coldplug All udev Devices.
-Mar 12 19:59:14 localhost systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
-Mar 12 19:59:14 localhost systemd[1]: plymouth-start.service - Show Plymouth Boot Screen was skipped because of an unmet condition check (ConditionKernelCommandLine=splash).
-Mar 12 19:59:14 localhost systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
-Mar 12 19:59:14 localhost systemd[1]: systemd-ask-password-plymouth.path - Forward Password Requests to Plymouth Directory Watch was skipped because of an unmet condition check (ConditionPathExists=/run/plymouth/pid).
-Mar 12 19:59:14 localhost systemd[1]: Reached target cryptsetup.target - Local Encrypted Volumes.
-Mar 12 19:59:15 localhost systemd[1]: Started multipathd.service - Device-Mapper Multipath Device Controller.
-Mar 12 19:59:15 localhost systemd[1]: Reached target local-fs-pre.target - Preparation for Local File Systems.
-Mar 12 19:59:15 localhost systemd[1]: Starting modprobe@dm_mod.service - Load Kernel Module dm_mod...
-Mar 12 19:59:15 localhost systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
-Mar 12 19:59:15 localhost systemd[1]: Starting modprobe@loop.service - Load Kernel Module loop...
-Mar 12 19:59:15 localhost systemd[1]: netplan-ovs-cleanup.service - OpenVSwitch configuration for cleanup was skipped because of an unmet condition check (ConditionFileIsExecutable=/usr/bin/ovs-vsctl).
-Mar 12 19:59:15 localhost systemd[1]: plymouth-start.service - Show Plymouth Boot Screen was skipped because of an unmet condition check (ConditionKernelCommandLine=splash).
-Mar 12 19:59:15 localhost systemd[1]: systemd-ask-password-plymouth.path - Forward Password Requests to Plymouth Directory Watch was skipped because of an unmet condition check (ConditionPathExists=/run/plymouth/pid).
-Mar 12 19:59:15 localhost systemd[1]: systemd-fsck-root.service - File System Check on Root Device was skipped because of an unmet condition check (ConditionPathExists=!/run/initramfs/fsck-root).
-Mar 12 19:59:15 localhost systemd[1]: systemd-hwdb-update.service - Rebuild Hardware Database was skipped because of an unmet condition check (ConditionNeedsUpdate=/etc).
-Mar 12 19:59:15 localhost systemd[1]: systemd-pcrmachine.service - TPM2 PCR Machine ID Measurement was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
-Mar 12 19:59:15 localhost systemd[1]: systemd-sysusers.service - Create System Users was skipped because no trigger condition checks were met.
-Mar 12 19:59:15 localhost systemd[1]: systemd-tpm2-setup-early.service - TPM2 SRK Setup (Early) was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
-Mar 12 19:59:15 localhost systemd[1]: systemd-tpm2-setup.service - TPM2 SRK Setup was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
-Mar 12 19:59:15 localhost systemd[1]: modprobe@dm_mod.service: Deactivated successfully.
-Mar 12 19:59:15 localhost systemd[1]: Finished modprobe@dm_mod.service - Load Kernel Module dm_mod.
-Mar 12 19:59:15 localhost systemd[1]: Listening on systemd-rfkill.socket - Load/Save RF Kill Switch Status /dev/rfkill Watch.
-Mar 12 19:59:15 localhost systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
-Mar 12 19:59:15 localhost systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
-Mar 12 19:59:15 localhost systemd[1]: systemd-pstore.service - Platform Persistent Storage Archival was skipped because of an unmet condition check (ConditionDirectoryNotEmpty=/sys/fs/pstore).
-Mar 12 19:59:15 localhost systemd[1]: modprobe@loop.service: Deactivated successfully.
-Mar 12 19:59:15 localhost systemd[1]: Finished modprobe@loop.service - Load Kernel Module loop.
-Mar 12 19:59:15 localhost systemd[1]: systemd-repart.service - Repartition Root Disk was skipped because no trigger condition checks were met.
-Mar 12 19:59:15 localhost (udev-worker)[400]: dm-0: Process '/usr/bin/unshare -m /usr/bin/snap auto-import --mount=/dev/dm-0' failed with exit code 1.
-Mar 12 19:59:15 localhost (udev-worker)[388]: sda: Process '/usr/bin/unshare -m /usr/bin/snap auto-import --mount=/dev/sda' failed with exit code 1.
-Mar 12 19:59:15 localhost lvm[462]: PV /dev/sda3 online, VG ubuntu-vg is complete.
-Mar 12 19:59:15 localhost lvm[462]: VG ubuntu-vg finished
-Mar 12 19:59:15 localhost (udev-worker)[383]: sda2: Process '/usr/bin/unshare -m /usr/bin/snap auto-import --mount=/dev/sda2' failed with exit code 1.
-Mar 12 19:59:15 localhost systemd[1]: Found device dev-disk-by\x2duuid-c3f8f018\x2df5f7\x2d4a5d\x2d92a1\x2d12ee87108672.device - QEMU_HARDDISK 2.
-Mar 12 19:59:15 localhost (udev-worker)[388]: sda3: Process '/usr/bin/unshare -m /usr/bin/snap auto-import --mount=/dev/sda3' failed with exit code 1.
-Mar 12 19:59:15 localhost systemd[1]: Starting systemd-fsck@dev-disk-by\x2duuid-c3f8f018\x2df5f7\x2d4a5d\x2d92a1\x2d12ee87108672.service - File System Check on /dev/disk/by-uuid/c3f8f018-f5f7-4a5d-92a1-12ee87108672...
-Mar 12 19:59:15 localhost (udev-worker)[400]: sda1: Process '/usr/bin/unshare -m /usr/bin/snap auto-import --mount=/dev/sda1' failed with exit code 1.
-Mar 12 19:59:15 localhost (udev-worker)[393]: sr0: Process '/usr/bin/unshare -m /usr/bin/snap auto-import --mount=/dev/sr0' failed with exit code 1.
-Mar 12 19:59:15 localhost systemd[1]: Started systemd-fsckd.service - File System Check Daemon to report status.
 
 awk '{print $3}' /var/log/auth.log | sed 's/[\[][0-9]\+\]//g' | sort -k 1 | uniq
 (systemd):
@@ -846,7 +804,7 @@ gpasswd:
 groupadd:
 nologin:
 passwd:
-sshd:
+sshd: 
 su:
 sudo:
 systemd-logind:
@@ -863,7 +821,7 @@ awk '{print $3}' /var/log/auth.log | sed 's/[\[][0-9]\+\]//g' | sort | uniq -c |
       3 useradd:
       3 sudo:
       3 groupadd:
-      3 chage:
+      3 chage: 
       2 (systemd):
       1 passwd:
       1 nologin:
@@ -879,7 +837,7 @@ awk -F: '$7 == "/usr/sbin/nologin" {print $3, $1}' /etc/passwd | sort -nr | whil
 992, systemd-resolve, systemd-resolve
 991, polkitd, polkitd
 989, fwupd-refresh, fwupd-refresh
-109, sshd, 
+109, sshd,
 108, usbmux, 
 107, landscape, landscape
 105, tcpdump, tcpdump
@@ -930,6 +888,7 @@ dmesg | grep -i kernel
 [    5.406845] systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
 [    5.409863] systemd[1]: Starting systemd-remount-fs.service - Remount Root and Kernel File Systems...
 
+
 grep -c $ /var/log/kern.log.1
 3698
 
@@ -944,6 +903,4 @@ Commandline: apt dist-upgrade; Start-Date: 2025-03-12  18:19:08; End-Date: 2025-
 Commandline: apt install vim qemu-guest-agent; Start-Date: 2025-03-12  18:21:23; End-Date: 2025-03-12  18:21:31
 Commandline: apt install bzip2; Start-Date: 2025-03-16  17:27:51; End-Date: 2025-03-16  17:27:57
 Commandline: apt install 7zip; Start-Date: 2025-03-16  17:30:06; End-Date: 2025-03-16  17:30:14
-
-
 
