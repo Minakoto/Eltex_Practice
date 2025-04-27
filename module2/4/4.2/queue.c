@@ -40,18 +40,13 @@ p_queue* dequeue(p_queue** q, short pri) {
     }
     return new_q;
 }
-p_queue* dequeue_min(p_queue** q, short pri) { // FIX
+p_queue* dequeue_min(p_queue** q, short pri) {
     if(*q == NULL) return NULL;
-    p_queue* new_q = *q;
-    if(pri == -1) *q = (*q)->next;
-    else {
-        p_queue* prev = NULL;
-        while(new_q != NULL && new_q->priority < pri) {
-            prev = new_q;
-            new_q = new_q->next;
-        }
-        if(prev == NULL) *q = new_q->next;
-        else prev->next = new_q->next;
+    p_queue* new_q = NULL, *tmp = *q, *prev = NULL;
+    while(tmp != NULL && tmp->priority < pri) {
+        new_q = enqueue(new_q, tmp->msg, tmp->priority);
+        *q = (*q)->next;
+        tmp = tmp->next;
     }
     return new_q;
 }
@@ -74,4 +69,8 @@ void print_1(p_queue* q) {
         return;
     }
     printf("%d %s\n",q->priority, q->msg);
+}
+
+void clean(p_queue* q) {
+     if(q != NULL) free(q);
 }

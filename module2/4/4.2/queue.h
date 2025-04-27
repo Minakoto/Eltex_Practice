@@ -16,6 +16,7 @@ typedef struct p_queue {
 p_queue* enqueue(p_queue*, char*, short);
 p_queue* dequeue(p_queue**, short); // s - -1 - max
 p_queue* dequeue_min(p_queue**, short);
+void clean(p_queue*);
 void print(p_queue*);
 void print_1(p_queue*);
 #endif

@@ -1,8 +1,7 @@
 #include "queue.h"
 
 int main() {
-    p_queue* pq = NULL;
-    p_queue* pq2 = NULL;
+    p_queue* pq = NULL,*pq2 = NULL, *pq3 = NULL;
     srand(time(NULL));
     char* string, *tmp;
     char cmd = 0;
@@ -30,7 +29,7 @@ int main() {
                 pq2 = dequeue(&pq, -1);
                 printf("\nDequeued:\n");
                 print_1(pq2);
-                if(pq2 != NULL) free(pq2);
+                clean(pq2);
                 break;
             case 3:
                 printf("Input priority: ");
@@ -38,7 +37,7 @@ int main() {
                 pq2 = dequeue(&pq, prior);
                 printf("\nDequeued:\n");
                 print_1(pq2);
-                if(pq2 != NULL) free(pq2);
+                clean(pq2);
                 break;
             case 4:
                 printf("Input priority: ");
@@ -46,7 +45,8 @@ int main() {
                 pq2 = dequeue_min(&pq, prior);
                 printf("\nDequeued:\n");
                 print(pq2);
-                if(pq2 != NULL) free(pq2);
+                while(pq3 = dequeue(&pq2, -1))
+                    clean(pq3);
                 break;
             case 5:
                 printf("\nQueue\n");
@@ -57,5 +57,6 @@ int main() {
                 cmd = 6;
         }
     }
-    if(pq != NULL) free(pq);
+    while(pq3 = dequeue(&pq2, -1))
+    clean(pq3);
 }
