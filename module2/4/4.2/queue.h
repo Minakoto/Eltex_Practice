@@ -13,10 +13,9 @@ typedef struct p_queue {
     struct p_queue* next;
 } p_queue;
 
-p_queue* Add(p_queue*, char*, short);
-p_queue* GetFirst(p_queue*);
-p_queue* GetFromPriority(p_queue*, short);
-p_queue* GetMinPriority(p_queue*, short);
-p_queue* Delete(p_queue* pq, p_queue* todel);
+p_queue* enqueue(p_queue*, char*, short);
+p_queue* dequeue(p_queue**, short); // s - -1 - max
+p_queue* dequeue_min(p_queue**, short);
 void print(p_queue*);
+void print_1(p_queue*);
 #endif
