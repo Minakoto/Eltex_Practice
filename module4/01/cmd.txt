@@ -1,0 +1,13 @@
+R1#conf t         
+R1(config)#interface fastEthernet0/0
+R1(config-if)#ip address 10.10.0.1 255.255.255.0
+R1(config-if)#no shutdown
+R1#wr mem
+
+R1#conf t 
+R1(config)#interface fastEthernet1/0
+R1(config-if)#ip address 10.10.1.1 255.255.255.0
+R1(config-if)#no shutdown
+R1(config-if)#wr mem 
+
+

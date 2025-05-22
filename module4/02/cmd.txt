@@ -1,0 +1,90 @@
+
+
+vIOS-L2-01>enable
+vIOS-L2-01>conf t
+vIOS-L2-01>spanning-tree vlan 1 root primary
+
+PC1> ping 10.10.0.32
+
+84 bytes from 10.10.0.32 icmp_seq=1 ttl=64 time=0.718 ms
+84 bytes from 10.10.0.32 icmp_seq=2 ttl=64 time=1.557 ms
+^C
+PC1> ping 10.10.0.33
+
+84 bytes from 10.10.0.33 icmp_seq=1 ttl=64 time=1.783 ms
+^C
+PC1> ping 10.10.0.34
+
+84 bytes from 10.10.0.34 icmp_seq=1 ttl=64 time=1.842 ms
+^C
+PC1> ping 10.10.0.35
+
+84 bytes from 10.10.0.35 icmp_seq=1 ttl=64 time=2.319 ms
+^C
+PC1> ping 10.10.0.36
+
+84 bytes from 10.10.0.36 icmp_seq=1 ttl=64 time=1.841 ms
+
+PC2> ping 10.10.0.33
+
+84 bytes from 10.10.0.33 icmp_seq=1 ttl=64 time=6.307 ms
+84 bytes from 10.10.0.33 icmp_seq=2 ttl=64 time=9.000 ms
+^C
+PC2> ping 10.10.0.34
+
+84 bytes from 10.10.0.34 icmp_seq=1 ttl=64 time=21.296 ms
+84 bytes from 10.10.0.34 icmp_seq=2 ttl=64 time=8.174 ms
+^C
+PC2> ping 10.10.0.35
+
+84 bytes from 10.10.0.35 icmp_seq=1 ttl=64 time=8.920 ms
+84 bytes from 10.10.0.35 icmp_seq=2 ttl=64 time=2.513 ms
+^C
+PC2> ping 10.10.0.36
+
+84 bytes from 10.10.0.36 icmp_seq=1 ttl=64 time=11.665 ms
+84 bytes from 10.10.0.36 icmp_seq=2 ttl=64 time=5.609 ms
+
+PC3> ping 10.10.0..34 
+Cannot resolve 10.10.0..34
+
+PC3> ping 10.10.0.34 
+
+84 bytes from 10.10.0.34 icmp_seq=1 ttl=64 time=0.945 ms
+^C
+PC3> ping 10.10.0.35
+
+84 bytes from 10.10.0.35 icmp_seq=1 ttl=64 time=3.067 ms
+84 bytes from 10.10.0.35 icmp_seq=2 ttl=64 time=6.708 ms
+^C
+PC3> ping 10.10.0.36
+
+84 bytes from 10.10.0.36 icmp_seq=1 ttl=64 time=7.280 ms
+84 bytes from 10.10.0.36 icmp_seq=2 ttl=64 time=7.443 ms
+
+
+PC4> ping 10.10.0.35 
+
+84 bytes from 10.10.0.35 icmp_seq=1 ttl=64 time=9.057 ms
+84 bytes from 10.10.0.35 icmp_seq=2 ttl=64 time=8.645 ms
+^C
+PC4> ping 10.10.0.36
+
+84 bytes from 10.10.0.36 icmp_seq=1 ttl=64 time=15.497 ms
+84 bytes from 10.10.0.36 icmp_seq=2 ttl=64 time=4.979 ms
+
+
+PC5> ping 10.10.0.36
+
+84 bytes from 10.10.0.36 icmp_seq=1 ttl=64 time=1.339 ms
+84 bytes from 10.10.0.36 icmp_seq=2 ttl=64 time=1.721 ms
+
+
+
+
+vIOS-L2-01#config
+Configuring from terminal, memory, or network [terminal]? t
+Enter configuration commands, one per line.  End with CNTL/Z.
+vIOS-L2-01(config)#interface Gi0/0
+vIOS-L2-01(config-if)#span
+vIOS-L2-01(config-if)#spanning-tree cost 15

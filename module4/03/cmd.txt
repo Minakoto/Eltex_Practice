@@ -1,0 +1,85 @@
+~~Настройка access
+
+Switch-3, 4, 5
+
+Switch#conf t 
+Switch(config-if)#switchport mode access   
+Switch(config-if)#switchport access vlan 20
+Switch#wr mem
+Switch#conf t
+Switch(config)#interface Gi1/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 333
+Switch#wr mem
+
+~~Настройка trunk
+
+Switch-1, 2
+
+Switch(config)#interface range Gi0/0-3, Gi1/0-3
+Switch(config-if-range)#switchport trunk encapsulation dot1q
+Switch(config-if-range)#switchport mode trunk
+Switch(config-if-range)#switchport trunk native vlan 333 
+Switch(config-if-range)#switchport trunk allowed vlan 20,333
+
+Switch-3, 4, 5
+
+Switch(config)#interface range Gi0/0-3
+Switch(config-if-range)#switchport trunk encaps
+Switch(config-if-range)#switchport trunk encapsulation dot1q
+Switch(config-if-range)#switchport trunk native vlan 333
+Switch(config-if-range)#switchport trunk allowed vlan 20,333
+Switch#wr mem
+
+~~ping VLAN 20
+
+C1> ping 10.10.0.32 
+
+host (10.10.0.32) not reachable
+
+PC1> ping 10.10.0.33
+
+84 bytes from 10.10.0.33 icmp_seq=1 ttl=64 time=4.541 ms
+84 bytes from 10.10.0.33 icmp_seq=2 ttl=64 time=9.253 ms
+84 bytes from 10.10.0.33 icmp_seq=3 ttl=64 time=2.554 ms
+
+PC1> ping 10.10.0.34
+
+host (10.10.0.34) not reachable
+
+PC1> ping 10.10.0.35
+
+84 bytes from 10.10.0.35 icmp_seq=1 ttl=64 time=9.301 ms
+84 bytes from 10.10.0.35 icmp_seq=2 ttl=64 time=7.463 ms
+84 bytes from 10.10.0.35 icmp_seq=3 ttl=64 time=10.749 ms
+
+PC1> ping 10.10.0.36
+
+host (10.10.0.36) not reachable
+
+~~ping VLAN 333
+
+PC2> ping 10.10.0.31
+
+host (10.10.0.31) not reachable
+
+PC2> ping 10.10.0.33
+
+host (10.10.0.33) not reachable
+
+PC2> ping 10.10.0.34
+
+84 bytes from 10.10.0.34 icmp_seq=1 ttl=64 time=24.152 ms
+84 bytes from 10.10.0.34 icmp_seq=2 ttl=64 time=15.356 ms
+84 bytes from 10.10.0.34 icmp_seq=3 ttl=64 time=8.973 ms
+
+PC2> ping 10.10.0.35
+
+host (10.10.0.35) not reachable
+
+PC2> ping 10.10.0.36
+
+84 bytes from 10.10.0.36 icmp_seq=1 ttl=64 time=14.552 ms
+84 bytes from 10.10.0.36 icmp_seq=2 ttl=64 time=10.293 ms
+84 bytes from 10.10.0.36 icmp_seq=3 ttl=64 time=5.559 ms
+
