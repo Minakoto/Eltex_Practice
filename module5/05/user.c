@@ -48,6 +48,7 @@ int main() {
     init_header();
 
     char* mesg;
+    printf("Input message: ");
     fgets(mesg, MAX_LOAD, stdin);
     construct_msg(mesg);
 
