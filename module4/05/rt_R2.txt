@@ -1,0 +1,23 @@
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 12 subnets, 2 masks
+O E2    10.10.0.0/30 [110/100] via 10.10.2.1, 00:18:48, FastEthernet0/0
+O E2    10.10.1.0/30 [110/100] via 10.10.2.1, 00:18:48, FastEthernet0/0
+C       10.10.2.0/29 is directly connected, FastEthernet0/0
+O E2    10.10.0.4/30 [110/100] via 10.10.2.1, 00:18:48, FastEthernet0/0
+O       10.10.1.4/30 [110/2] via 10.10.2.1, 00:18:49, FastEthernet0/0
+O       10.10.0.8/30 [110/2] via 10.10.1.13, 00:18:49, FastEthernet1/0
+O       10.10.1.8/30 [110/2] via 10.10.1.13, 00:18:50, FastEthernet1/0
+O       10.10.0.12/30 [110/3] via 10.10.1.13, 00:18:50, FastEthernet1/0
+C       10.10.1.12/30 is directly connected, FastEthernet1/0
+O IA    10.10.0.16/30 [110/3] via 10.10.2.3, 00:18:50, FastEthernet0/0
+O       10.10.1.16/30 [110/3] via 10.10.1.13, 00:18:50, FastEthernet1/0
+O IA    10.10.1.20/30 [110/2] via 10.10.2.3, 00:18:50, FastEthernet0/0

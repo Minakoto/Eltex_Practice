@@ -1,0 +1,318 @@
+PC1 - 10.10.0.1
+PC2 - 10.10.0.5
+PC3 - 10.10.0.9
+PC4 - 10.10.0.13
+PC5 - 10.10.0.17
+
+~~RIP v2
+10.10.0.0/30
+PC1 - 10.10.0.1
+R4 - 10.10.0.2
+
+10.10.0.4/30
+PC2 - 10.10.0.5
+R5 - 10.10.0.6
+
+10.10.1.0/30
+R4 - 10.10.1.1
+R5 - 10.10.1.2
+
+10.10.1.4/30
+R5 - 10.10.1.5
+R1 - 10.10.1.6
+
+~~OSPF Area 0
+
+10.10.2.0/29
+R1 - 10.10.2.1
+R2 - 10.10.2.2
+R3 - 10.10.2.3
+L2S - 10.10.2.4
+
+~~OSPF Area 2
+
+10.10.0.8/30
+PC3 - 10.10.0.9
+R6 - 10.10.0.10
+
+10.10.0.12/30
+PC4 - 10.10.0.13
+R7 - 10.10.0.14
+
+10.10.1.8/30
+R6 - 10.10.1.9
+R7 - 10.10.1.10
+
+10.10.1.12/30
+R6 - 10.10.1.13
+R2 - 10.10.1.14
+
+10.10.1.16/30
+R7 - 10.10.1.17
+R3 - 10.10.1.18
+
+~~Тупик
+
+10.10.0.16/30
+PC5 - 10.10.0.17
+R8 - 10.10.0.18
+
+10.10.1.20/30
+R3 - 10.10.1.21
+R8 - 10.10.1.22
+
+
+
+~~~~~
+R4#conf t
+R4(config)#interface FastEthernet 0/0
+R4(config-if)#ip address 10.10.0.2 255.255.255.252
+R4(config-if)#no shutdown
+R4#conf t
+R4(config)#interface FastEthernet 1/0          
+R4(config-if)#ip address 10.10.1.1 255.255.255.252
+R4(config-if)#no shutdown
+R4# conf t
+R4(config)#router rip
+R4(config-router)#version 2
+R4(config-router)#network 10.10.0.0
+R4(config-router)#network 10.10.1.0
+R4(config-router)#no auto-summary
+
+~~~~
+R5#conf t 
+R5(config)#interface FastEthernet 0/0
+R5(config-if)#ip address 10.10.0.6 255.255.255.252 
+R5(config-if)#no shutdown
+R5#conf t 
+R5(config)#interface F
+R5(config)#interface FastEthernet 1/0
+R5(config-if)#ip address 10.10.1.2 255.255.255.252
+R5(config-if)#no shutdown
+R5#conf t 
+R5(config)#interface FastEthernet 2/0
+R5(config-if)#ip address 10.10.1.5 255.255.255.252
+R5(config-if)#no shutdown
+R5#conf t
+R5(config)#router rip
+R5(config-router)#version 2
+R5(config-router)#network 10.10.1.0
+R5(config-router)#network 10.10.0.4
+R5(config-router)#network 10.10.1.4
+R5(config-router)#no auto-summary 
+
+~~~~
+
+
+
+R1#conf t 
+R1(config)#interface FastEthernet 0/0
+R1(config-if)#ip address 10.10.1.6 255.255.255.252 
+R1(config-if)#no shutdown
+R1#conf t 
+R1(config)#interface F
+R1(config)#interface FastEthernet 1/0
+R1(config-if)#ip address 10.10.2.1 255.255.255.248
+R1(config-if)#no shutdown
+R1#conf t 
+R1(config)#router rip
+R1(config-router)#version 2
+R1(config-router)#network 10.10.1.4
+R1(config-router)#network 10.10.2.0
+R1#conf t       
+R1(config)#router ospf 1
+R1(config-router)#router-id 10.10.2.1 
+R1(config-router)#network 10.10.2.0 0.0.0.7 area 0
+R1(config-router)#network 10.10.1.4 0.0.0.3 area 0
+
+~~~~
+R2#conf t
+R2(config)#interface FastEthernet 0/0
+R2(config)#interface FastEthernet 0/0
+R2(config-if)#ip address 10.10.2.2 255.255.255.248
+R2#conf t
+R2(config)#interface FastEthernet 1/0
+R2(config-if)#ip address 10.10.1.14 255.255.255.252
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#router ospf 1
+R2(config-router)#router-id 10.10.2.2
+R2(config-router)#network 10.10.2.0 0.0.0.7 area 0 
+R2(config-router)#network 10.10.1.12 0.0.0.3 area 2
+
+~~~~
+R6#conf t
+R6(config)#interface FastEthernet 0/0
+R6(config-if)#ip address 10.10.1.13 255.255.255.252
+R6(config-if)#no shutdown
+R6#conf t
+R6(config)#interface FastEthernet 1/0
+R6(config-if)#ip address 10.10.0.10 255.255.255.252
+R6(config-if)#no shutdown
+R6#conf t
+R6(config)#interface FastEthernet 2/0
+R6(config-if)#ip address 10.10.1.9 255.255.255.252
+R6(config-if)#no shutdown
+R6#conf t
+R6(config)#router ospf 1
+R6(config-router)#router-id 10.10.1.13
+R6(config-router)#network 10.10.1.12 0.0.0.3 area 2
+R6(config-router)#network 10.10.1.8 0.0.0.3 area 2
+R6(config-router)#network 10.10.0.8 0.0.0.3 area 2
+
+~~~~~
+R7#conf t
+R7(config)#interface F
+R7(config)#interface FastEthernet 0/0 
+R7(config-if)#ip address 10.10.1.17 255.255.255.252
+R7(config-if)#no shutdown
+R7#conf t
+R7(config)#interface FastEthernet 1/0
+R7(config-if)#ip address 10.10.0.14 255.255.255.252
+R7(config-if)#no shutdown 
+R7#conf t
+R7(config)#interface FastEthernet 2/0
+R7(config-if)#ip address 10.10.1.9 255.255.255.252
+R7(config-if)#no shutdown
+R7#conf t
+R7(config)#router ospf 1
+R7(config-router)#router-id 10.10.1.9
+R7(config-router)#router-id 10.10.1.10
+R7(config-router)#network 10.10.1.8 0.0.0.3 area 2
+R7(config-router)#network 10.10.0.12 0.0.0.3 area 2
+R7(config-router)#network 10.10.1.16 0.0.0.3 area 2
+
+~~~~
+R3#conf t
+R3(config)#interface FastEthernet 0/0
+R3(config-if)#ip address 10.10.2.3 255.255.255.248
+R3(config-if)#no shutdown
+R3#conf t
+R3(config)#interface FastEthernet 1/0
+R3(config-if)#ip address 10.10.1.18 255.255.255.252
+R3(config-if)#no shutdown
+R3#conf t
+R3(config)#interface FastEthernet 2/0
+R3(config-if)#ip address 10.10.1.21 255.255.255.252
+R3(config-if)#no shutdown
+R3#conf t
+R3(config)#router ospf 1
+R3(config-router)#router-id 10.10.1.18
+R3(config-router)#network 10.10.1.16 0.0.0.3 area 2
+R3(config-router)#network 10.10.2.0 0.0.0.7 area 0
+R3(config-router)#network 10.10.1.20 0.0.0.3 area 1
+R3(config-router)#area 1 stub no-summary 
+
+~~~~
+R8#conf t
+R8(config)#interface FastEthernet 0/0
+R8(config-if)#ip address 10.10.1.22
+R8(config-if)#ip address 10.10.1.22 255.255.255.252
+R8(config-if)#no shutdown
+R8#conf t
+R8(config)#interface FastEthernet 1/0
+R8(config-if)#ip address 10.10.0.18 255.255.255.252
+R8(config-if)#no shutdown
+R8#conf t
+R8(config)#router ospf 1
+R8(config-router)#router-id 10.10.1.22
+R8(config-router)#network 10.10.1.20 0.0.0.3 area 1
+R8(config-router)#network 10.10.0.16 0.0.0.3 area 1
+R8(config-router)#area 1 stub
+
+
+~~~~
+R1#conf t
+R1(config)#router ospf 1
+R1(config-router)#redistribute rip subnets metric 100
+R1(config-router)#router rip
+R1(config-router)#redistribute ospf 1 metric 10
+
+
+~~~~ PING
+
+~~
+PC1> ping 10.10.0.5
+84 bytes from 10.10.0.5 icmp_seq=1 ttl=62 time=27.986 ms
+84 bytes from 10.10.0.5 icmp_seq=2 ttl=62 time=27.436 ms
+
+PC1> ping 10.10.0.9
+84 bytes from 10.10.0.9 icmp_seq=1 ttl=59 time=60.051 ms
+84 bytes from 10.10.0.9 icmp_seq=2 ttl=59 time=57.820 ms
+
+PC1> ping 10.10.0.13
+84 bytes from 10.10.0.13 icmp_seq=1 ttl=59 time=60.198 ms
+84 bytes from 10.10.0.13 icmp_seq=2 ttl=59 time=59.630 ms
+
+PC1> ping 10.10.0.17
+84 bytes from 10.10.0.17 icmp_seq=1 ttl=59 time=73.027 ms
+84 bytes from 10.10.0.17 icmp_seq=2 ttl=59 time=68.678 ms
+
+~~
+PC2> ping 10.10.0.1
+84 bytes from 10.10.0.1 icmp_seq=1 ttl=62 time=27.581 ms
+84 bytes from 10.10.0.1 icmp_seq=2 ttl=62 time=26.283 ms
+
+PC2> ping 10.10.0.9
+84 bytes from 10.10.0.9 icmp_seq=1 ttl=60 time=66.033 ms
+84 bytes from 10.10.0.9 icmp_seq=2 ttl=60 time=49.148 ms
+
+PC2> ping 10.10.0.13
+84 bytes from 10.10.0.13 icmp_seq=1 ttl=60 time=48.888 ms
+84 bytes from 10.10.0.13 icmp_seq=2 ttl=60 time=47.547 ms
+
+PC2> ping 10.10.0.17
+84 bytes from 10.10.0.17 icmp_seq=1 ttl=60 time=46.887 ms
+84 bytes from 10.10.0.17 icmp_seq=2 ttl=60 time=49.250 ms
+
+~~
+PC3> ping 10.10.0.1
+84 bytes from 10.10.0.1 icmp_seq=1 ttl=59 time=66.758 ms
+84 bytes from 10.10.0.1 icmp_seq=2 ttl=59 time=58.762 ms
+
+PC3> ping 10.10.0.5
+84 bytes from 10.10.0.5 icmp_seq=1 ttl=60 time=64.458 ms
+84 bytes from 10.10.0.5 icmp_seq=2 ttl=60 time=49.008 ms
+
+PC3> ping 10.10.0.13
+84 bytes from 10.10.0.13 icmp_seq=1 ttl=62 time=21.726 ms
+84 bytes from 10.10.0.13 icmp_seq=2 ttl=62 time=28.893 ms
+
+PC3> ping 10.10.0.17
+84 bytes from 10.10.0.17 icmp_seq=1 ttl=60 time=44.873 ms
+84 bytes from 10.10.0.17 icmp_seq=2 ttl=60 time=59.242 ms
+
+~~
+PC4> ping 10.10.0.1
+84 bytes from 10.10.0.1 icmp_seq=1 ttl=59 time=59.379 ms
+84 bytes from 10.10.0.1 icmp_seq=2 ttl=59 time=59.811 ms
+
+PC4> ping 10.10.0.5
+84 bytes from 10.10.0.5 icmp_seq=1 ttl=60 time=48.158 ms
+84 bytes from 10.10.0.5 icmp_seq=2 ttl=60 time=49.438 ms
+
+PC4> ping 10.10.0.9
+84 bytes from 10.10.0.9 icmp_seq=1 ttl=62 time=25.024 ms
+84 bytes from 10.10.0.9 icmp_seq=2 ttl=62 time=29.122 ms
+
+PC4> ping 10.10.0.17
+84 bytes from 10.10.0.17 icmp_seq=1 ttl=61 time=55.673 ms
+84 bytes from 10.10.0.17 icmp_seq=2 ttl=61 time=38.384 ms
+
+~~
+PC5> ping 10.10.0.1
+84 bytes from 10.10.0.1 icmp_seq=1 ttl=59 time=76.144 ms
+84 bytes from 10.10.0.1 icmp_seq=2 ttl=59 time=68.141 ms
+
+PC5> ping 10.10.0.5
+84 bytes from 10.10.0.5 icmp_seq=1 ttl=60 time=47.902 ms
+84 bytes from 10.10.0.5 icmp_seq=2 ttl=60 time=59.657 ms
+
+PC5> ping 10.10.0.9
+84 bytes from 10.10.0.9 icmp_seq=1 ttl=60 time=60.642 ms
+84 bytes from 10.10.0.9 icmp_seq=2 ttl=60 time=61.291 ms
+
+PC5> ping 10.10.0.13
+84 bytes from 10.10.0.13 icmp_seq=1 ttl=61 time=44.991 ms
+84 bytes from 10.10.0.13 icmp_seq=2 ttl=61 time=46.980 ms
+
